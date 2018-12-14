@@ -1,54 +1,24 @@
-(function ($) {
-  "use strict";
+$(document).ready(function() {
+  var clock;
 
-  $.fn.extend({ 
+  // Grab the current date
+  var timeNow = new Date();
 
-    countdownX: function(options) {
-      var defaults = {
-        timeZone: "",
-        endTimeYear: 0,
-        endTimeMonth: 0,
-        endTimeDate: 0,
-        endTimeHours: 0,
-        endTimeMinutes: 0,
-        endTimeSeconds: 0,
+  // Target future date/24 hour time/Timezone
+  var deadline = moment.tz("2019-03-01 23:59", "Africa/Lagos");
+
+  // Calculate the difference in seconds between the future and current date
+  var diff = deadline / 1000 - timeNow.getTime() / 1000;
+
+  // Countdown timer
+  clock = $("#countTim").FlipClock(diff, {
+    clockFace: "DailyCounter",
+    countdown: true,
+    callbacks: {
+      stop: function() {
+        console.log("Launching in a moment");
       }
-
-      var options =  $.extend(defaults, options);
-
-      return this.each(function() {
-        var obj = $(this);
-        var timeNow = new Date();
-
-        var tZ = options.timeZone; console.log(tZ);
-        var endYear = options.endTimeYear;
-        var endMonth = options.endTimeMonth;
-        var endDate = options.endTimeDate;
-        var endHours = options.endTimeHours;
-        var endMinutes = options.endTimeMinutes;
-        var endSeconds = options.endTimeSeconds;
-
-        if(tZ == "") {
-          var deadline = new Date(endYear, endMonth - 1, endDate, endHours, endMinutes, endSeconds);
-        } 
-        else {
-          var deadline = moment.tz([endYear, endMonth - 1, endDate, endHours, endMinutes, endSeconds], tZ).format();
-        }
-
-        if(Date.parse(deadline) < Date.parse(timeNow)) {
-          var deadline = new Date(Date.parse(new Date()) + endDate * 24 * 60 * 60 * 1000 + endHours * 60 * 60 * 1000); 
-        }
-        
-        var t = Date.parse(deadline) - Date.parse(new Date());
-          
-        var clock = $(obj).FlipClock(t/1000, {
-          clockFace: 'DailyCounter',
-          countdown: true
-        });
-
-
-      });
     }
   });
-
-})(jQuery);
+    
+});
