@@ -1,15 +1,11 @@
 $(document).ready(function() {
-  var clock;
-
+  const clock;
   // Grab the current date
-  var timeNow = new Date();
-
+  let timeNow = new Date();
   // Target future date/24 hour time/Timezone
-  var deadline = moment.tz("2019-03-01 23:59", "Africa/Lagos");
-
+  let deadline = moment.tz("2030-03-01 23:59", "Africa/Lagos");
   // Calculate the difference in seconds between the future and current date
-  var diff = deadline / 1000 - timeNow.getTime() / 1000;
-
+  let diff = deadline / 1000 - timeNow.getTime() / 1000;
   // Countdown timer
   clock = $("#countTim").FlipClock(diff, {
     clockFace: "DailyCounter",
@@ -19,6 +15,5 @@ $(document).ready(function() {
         console.log("Launching in a moment");
       }
     }
-  });
-    
+  });   
 });
