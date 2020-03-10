@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  const clock;
+  let clock;
   // Grab the current date
   let timeNow = new Date();
   // Target future date/24 hour time/Timezone
